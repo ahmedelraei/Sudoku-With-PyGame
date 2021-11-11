@@ -15,7 +15,7 @@ Sudoku Game made with PyGame uses Backtracking Algorithm to solve the grid.
 ![Backtracking solving the grid visualization](./media/Screenshot_2.png)
 
 **Backtracking Algorithm**: 
-A backtracking algorithm is a problem-solving algorithm that uses a brute force approach for finding the desired output.
+is a problem-solving algorithm that uses a brute force approach for finding the desired output.
 
 - The Brute force approach tries out all the possible solutions and chooses the desired/best solutions.
 
