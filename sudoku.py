@@ -1,7 +1,9 @@
 import pygame
 import sys
 import time
-from threading import Thread
+import threading
+import os
+
 
 pygame.font.init()
 
@@ -30,6 +32,7 @@ class Board:
         self.selected = None
         self.model = None
         self.update_model()
+    
     
     def update_model(self):
         self.model = [[self.cells[i][j].value for j in range(self.cols)] for i in range(self.rows)]
@@ -159,10 +162,7 @@ class Board:
             if self.validate(i, (row,col)):
                 self.model[row][col] = i
                 self.cells[row][col].value = i
-                t = Thread(target=self.cells[row][col].visualize(self.screen, True))
-                t.daemon = True
-                t.start()
-                #self.cells[row][col].visualize(self.screen, True)
+                self.cells[row][col].visualize(self.screen, True)
                 self.update_model()
                 pygame.display.update()
                 pygame.time.delay(100)
@@ -244,10 +244,22 @@ def redraw_window(screen, board, time, strikes):
     # Draw grid and board
     board.draw()
 
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
 def main():
     SCREEN_SIZE = 750, 850
     screen = pygame.display.set_mode(SCREEN_SIZE)
     pygame.display.set_caption('Sudoku')
+    icon = pygame.image.load(resource_path('icon.png'))
+    pygame.display.set_icon(icon)
     board = Board(screen)
     key = ''
     start = time.time()
@@ -324,10 +336,10 @@ def main():
                 if event.key == pygame.K_SPACE:
                     board.solve_visualization()
 
-        t = Thread(target=redraw_window(screen, board, timer, strikes))
-        t.daemon = True
-        t.start()
+        redraw_window(screen, board, timer, strikes)
         pygame.display.update()
+
+
 
 
 if __name__ == '__main__':
