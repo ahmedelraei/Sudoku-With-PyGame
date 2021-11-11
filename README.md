@@ -10,7 +10,7 @@ The term backtracking suggests that if the current solution is not suitable, the
 This approach is used to solve problems that have multiple solutions. If you want an optimal solution, you must go for dynamic programming.
 
 ## GUI
-![GUI](./Screenshot_1.png)
+![GUI](./media/Screenshot_1.png)
 
 ## Controls
 - Select cell by *MOUSE CLICK*.
@@ -19,8 +19,8 @@ This approach is used to solve problems that have multiple solutions. If you wan
 - Visualize solution by pressing *SPACE*.
 
 ## Backtracking Visualization
-![Backtracking solving the grid visualization](./Screenshot_2.png)
+![Backtracking solving the grid visualization](./media/Screenshot_2.png)
 
 ## Solution
-![Solution](./Screenshot_3.png)
+![Solution](./media/Screenshot_3.png)
 
