@@ -120,10 +120,10 @@ class Board:
         return True
 
 
-    def locate_empty(self, board):
-        for x in range(len(board)):
-            for y in range(len(board[0])):
-                if board[x][y] == 0:
+    def locate_empty(self):
+        for x in range(len(self.model)):
+            for y in range(len(self.model[0])):
+                if self.model[x][y] == 0:
                     return (x, y)
         
         return None
@@ -148,7 +148,8 @@ class Board:
         return False
     
     def solve_visualization(self):
-        find = self.locate_empty(self.model)
+        self.update_model()
+        find = self.locate_empty()
         if not find:
             return True
         else:
@@ -164,7 +165,7 @@ class Board:
                 #self.cells[row][col].visualize(self.screen, True)
                 self.update_model()
                 pygame.display.update()
-                pygame.time.delay(50)
+                pygame.time.delay(100)
                 if self.solve_visualization():
                     return True
 
@@ -173,7 +174,7 @@ class Board:
                 self.update_model()
                 self.cells[row][col].visualize(self.screen, False)
                 pygame.display.update()
-                pygame.time.delay(50)
+                pygame.time.delay(100)
         
         return False
 
@@ -212,9 +213,9 @@ class Cell:
         pygame.draw.rect(screen, GREEN, (x + 15, y + 15, gap, gap), 0)
         
         text = fnt.render(str(self.value), 1, (255, 255, 255))
-        screen.blit(text, pygame.Vector2((self.row * gap) + offset + 4, (self.col * gap) + offset - 2))
+        screen.blit(text, pygame.Vector2(x + offset + 4, y + offset - 2))
         if bool:
-            pygame.draw.rect(screen, (0, 255, 0), (x + 15, y + 15, gap, gap), 3)
+            pygame.draw.rect(screen, (0, 0, 255), (x + 15, y + 15, gap, gap), 3)
         else:
             pygame.draw.rect(screen, (255, 0, 0), (x + 15, y + 15, gap, gap), 3)
 
