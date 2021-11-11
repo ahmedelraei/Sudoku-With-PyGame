@@ -1,9 +1,7 @@
 import pygame
 import sys
-from pygame.display import flip
-from solver import locate_empty
 import time
-
+from threading import Thread
 
 pygame.font.init()
 
@@ -132,7 +130,7 @@ class Board:
 
 
     def solve(self):
-        find = locate_empty(self.model)
+        find = self.locate_empty(self.model)
         if not find:
             return True
         else:
@@ -150,7 +148,7 @@ class Board:
         return False
     
     def solve_visualization(self):
-        find = locate_empty(self.model)
+        find = self.locate_empty(self.model)
         if not find:
             return True
         else:
@@ -160,7 +158,10 @@ class Board:
             if self.validate(i, (row,col)):
                 self.model[row][col] = i
                 self.cells[row][col].value = i
-                self.cells[row][col].visualize(self.screen, True)
+                t = Thread(target=self.cells[row][col].visualize(self.screen, True))
+                t.daemon = True
+                t.start()
+                #self.cells[row][col].visualize(self.screen, True)
                 self.update_model()
                 pygame.display.update()
                 pygame.time.delay(50)
@@ -322,7 +323,9 @@ def main():
                 if event.key == pygame.K_SPACE:
                     board.solve_visualization()
 
-        redraw_window(screen, board, timer, strikes)         
+        t = Thread(target=redraw_window(screen, board, timer, strikes))
+        t.daemon = True
+        t.start()
         pygame.display.update()
 
 

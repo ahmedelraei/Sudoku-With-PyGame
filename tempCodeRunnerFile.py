@@ -1,1 +1,3 @@
-(0, 255, 0)
+te_model()
+                pygame.display.update()
+                pygame.time
